@@ -9,6 +9,6 @@ namespace KennelSys
     class dbConnection
     {
         public const string oradb =
-            "Data Source = oracle/orcl; User Id = t00095451; password = hity893f";
+            "Data Source = oracle/orcl; User Id = t00011111; password = ABC12345";
     }
 }
