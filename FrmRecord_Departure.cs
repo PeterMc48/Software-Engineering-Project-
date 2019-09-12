@@ -45,10 +45,10 @@ namespace KennelSys
 
                 //get the booking and customer details for todays arrivals using surname
                 DataSet ds = new DataSet();
-                grdCustDetails.DataSource = Booking.getArrivals(ds, txtSearchLastName.Text.ToUpper()).Tables["custSearch"];
+                grdCustDetails.DataSource = Booking.getDepartures(ds, txtSearchLastName.Text.ToUpper()).Tables["custSearch"];
                 if (grdCustDetails.Rows.Count == 1)
                 {
-                    MessageBox.Show("No Customers in the system with that last name arriving today", "Error!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("No Customers in the system with that last name departing today", "Error!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 //display bookings
