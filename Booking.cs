@@ -300,7 +300,7 @@ namespace KennelSys
             OracleConnection myConn = new OracleConnection(dbConnection.oradb);
             myConn.Open();
 
-            String strSQL = "SELECT BookingId, CustFirstName, CustLastName, CustEmail, Arrival_Date, Departure_Date FROM Bookings WHERE CustLastName LIKE '" + Search + "%' ORDER BY CustLastName, CustFirstName";
+            String strSQL = "SELECT BookingId, CustFirstName, CustLastName, CustEmail, Arrival_Date, Departure_Date FROM Bookings WHERE STATUS = 'B' AND CustLastName LIKE '" + Search + "%' ORDER BY CustLastName, CustFirstName";
 
             OracleCommand cmd = new OracleCommand(strSQL, myConn);
 
@@ -331,7 +331,28 @@ namespace KennelSys
             OracleConnection myConn = new OracleConnection(dbConnection.oradb);
             myConn.Open();
             String today = String.Format("{0:dd-MMM-yy}", System.DateTime.Now);
-            String strSQL = "SELECT BookingId, CustFirstName, CustLastName, CustEmail, Arrival_Date, Kennel_ID FROM Bookings WHERE CustLastName LIKE '" + lastname + "%' AND Arrival_Date = '" + today + "' ORDER BY CustLastName, CustFirstName";
+            String strSQL = "SELECT BookingId, CustFirstName, CustLastName, CustEmail, Arrival_Date, Kennel_ID FROM Bookings WHERE Status = 'B' AND CustLastName LIKE '" + lastname + 
+                "%' AND Arrival_Date = '" + today + "' ORDER BY CustLastName, CustFirstName";
+
+            OracleCommand cmd = new OracleCommand(strSQL, myConn);
+
+            OracleDataAdapter da = new OracleDataAdapter(cmd);
+
+            da.Fill(DS, "custSearch");
+
+            myConn.Close();
+
+            return DS;
+
+        }
+
+        public static DataSet getDepartures(DataSet DS, String lastname)
+        {
+            OracleConnection myConn = new OracleConnection(dbConnection.oradb);
+            myConn.Open();
+            String today = String.Format("{0:dd-MMM-yy}", System.DateTime.Now);
+            String strSQL = "SELECT BookingId, CustFirstName, CustLastName, CustEmail, Arrival_Date, Kennel_ID FROM Bookings WHERE Status = 'A' AND CustLastName LIKE '" + lastname +
+                "%' AND Departure_Date = '" + today + "' ORDER BY CustLastName, CustFirstName";
 
             OracleCommand cmd = new OracleCommand(strSQL, myConn);
 
